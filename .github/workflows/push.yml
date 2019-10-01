@@ -1,0 +1,61 @@
+on: push
+name: Build and test
+jobs:
+  check_codestyle:
+    name: Codestyle
+    runs-on: ubuntu-latest
+    if: '!github.event.deleted'
+    steps:
+    - uses: actions/checkout@master
+    - name: Composer install
+      uses: MilesChou/composer-action@master
+      with:
+        args: install
+    - name: Check codestyle
+      uses: docker://php:7.3-alpine
+      with:
+        entrypoint: vendor/bin/phpcs
+
+  static_code_analysis:
+    name: Static Code Analysis
+    runs-on: ubuntu-latest
+    if: '!github.event.deleted'
+    steps:
+    - uses: actions/checkout@master
+    - name: Composer install
+      uses: MilesChou/composer-action@master
+      with:
+        args: install
+    - name: Static code analysis
+      uses: docker://php:7.3-alpine
+      with:
+        entrypoint: vendor/bin/phpstan
+        args: analyse
+
+  unit_tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    if: '!github.event.deleted'
+    strategy:
+        matrix:
+            composer-update: ["", "--prefer-stable --prefer-lowest"]
+    steps:
+    - uses: actions/checkout@master
+    - name: Composer install
+      uses: MilesChou/composer-action@master
+      with:
+        args: install
+    - name: Composer update
+      uses: MilesChou/composer-action@master
+      if: "matrix.composer-update != ''"
+      with:
+        args: update ${{ matrix.composer-update }}
+    - name: Unit tests
+      uses: docker://php:7.3-alpine
+      with:
+        entrypoint: phpdbg
+        args: -qrr vendor/bin/phpunit
+    - name: Unit Codecov
+      uses: Atrox/codecov-action@v0.1.3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use DDB\OpenPlatform\OpenPlatform;
+use Symfony\Component\Yaml\Yaml;
+
+$app = new Silly\Application();
+
+$app->command('search [--fields=] [token] [string]', function ($fields, $token, $string) {
+    $op = new OpenPlatform($token);
+
+    $req = $op->searchRequest();
+    $req->query = $string;
+    if ($fields) {
+        $req->fields = explode(',', $fields);
+    }
+
+    $res = $req->execute();
+
+    print(Yaml::dump($res->data));
+    print "Hitcount: " . $res->hitCount . "\n";
+});
+
+$app->run();

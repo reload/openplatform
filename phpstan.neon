@@ -1,0 +1,11 @@
+parameters:
+    level: 7
+    paths:
+        - src
+        - tests
+    autoload_directories:
+    	- tests
+    ignoreErrors:
+        # Ignore some errors triggered by testing.
+        - '#Access to an undefined property class@anonymous/tests/BaseRequestTest#'
+        - '#Access to an undefined property#'

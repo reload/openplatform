@@ -8,6 +8,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
 class ResponseTest extends TestCase
 {
+    protected $response;
 
     public function setUp() : void
     {
@@ -16,7 +17,7 @@ class ResponseTest extends TestCase
             'data' => ['some' => 'data'],
         ];
         $this->response = $this->prophesize(ResponseInterface::class);
-        $this->response->getContent()->willReturn(json_encode($data));
+        $this->response->getContent(false)->willReturn(json_encode($data));
     }
 
     public function testResponseParsing()
@@ -31,7 +32,7 @@ class ResponseTest extends TestCase
         $res = new Response($this->response->reveal());
 
         $this->expectException(RuntimeException::class);
-        $res->data = 'test';
+        $res->data = ['test'];
     }
 
     public function testUnsettingThrows()
@@ -66,7 +67,7 @@ class ResponseTest extends TestCase
             'data' => ['some' => 'data'],
         ];
         $this->response = $this->prophesize(ResponseInterface::class);
-        $this->response->getContent()->willReturn(json_encode($data));
+        $this->response->getContent(false)->willReturn(json_encode($data));
 
         $res = new Response($this->response->reveal());
 
@@ -83,7 +84,7 @@ class ResponseTest extends TestCase
             'data' => ['some' => 'data'],
         ];
         $this->response = $this->prophesize(ResponseInterface::class);
-        $this->response->getContent()->willReturn(json_encode($data));
+        $this->response->getContent(false)->willReturn(json_encode($data));
 
         $res = new Response($this->response->reveal());
 
@@ -99,7 +100,7 @@ class ResponseTest extends TestCase
             'data' => ['some' => 'data'],
         ];
         $this->response = $this->prophesize(ResponseInterface::class);
-        $this->response->getContent()->willReturn(json_encode($data));
+        $this->response->getContent(false)->willReturn(json_encode($data));
 
         $res = new Response($this->response->reveal());
 

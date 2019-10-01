@@ -37,7 +37,7 @@ class Response
 
     public function __isset(string $name) : bool
     {
-        $this->ensureData($name);
+        $this->ensureData();
         return isset($this->data[$name]);
     }
 
@@ -52,7 +52,8 @@ class Response
     protected function ensureData() : void
     {
         if (is_null($this->data)) {
-            $this->data = json_decode($this->response->getContent(), true);
+            // We'll  ignore the HTTP status and go by the statusCode provided by the service.
+            $this->data = json_decode($this->response->getContent(false), true);
             if (!isset($this->data['statusCode']) || $this->data['statusCode'] != 200) {
                 $message = $this->data['error_description'] ?? $this->data['error'] ?? 'Unknown error';
                 throw new RequestError($message);

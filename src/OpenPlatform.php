@@ -46,7 +46,6 @@ class OpenPlatform
             'POST',
             'https://openplatform.dbc.dk/v3/' . ltrim($path, '/'),
             [
-                //'headers' => ['Content-Type' => 'Application/json'],
                 'json' => $payload,
             ]
         );

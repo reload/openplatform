@@ -90,7 +90,7 @@ abstract class BaseRequest
     protected function checkProperty($name)
     {
         if (!array_key_exists($name, $this->properties)) {
-            throw new InvalidPropertyException();
+            throw new InvalidPropertyException('Invalid property "' . $name . '"');
         }
     }
 }

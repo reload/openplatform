@@ -8,7 +8,7 @@ use Symfony\Component\Yaml\Yaml;
 
 $app = new Silly\Application();
 
-$app->command('search [--fields=] [token] [string]', function ($fields, $token, $string) {
+$app->command('search [--fields=] token string', function ($fields, $token, $string) {
     $op = new OpenPlatform($token);
 
     $req = $op->searchRequest();
@@ -21,6 +21,39 @@ $app->command('search [--fields=] [token] [string]', function ($fields, $token, 
 
     print(Yaml::dump($res->data));
     print "Hitcount: " . $res->hitCount . "\n";
-});
+})
+    ->descriptions('Perform a search request', [
+        '--fields' => 'Comma separated list of fields to fetch',
+        'token' => 'Access token',
+        'string' => 'Search string'
+    ]);
+
+$app->command('generic token path parameters*', function ($token, $path, $parameters) {
+    $op = new OpenPlatform($token);
+
+    $req = $op->genericRequest($path);
+
+    foreach ($parameters as $parameter) {
+        $parts = explode('=', $parameter);
+        if (!count($parts)) {
+            throw new RuntimeException('Invalid parameter ' . $parameter);
+        }
+        list($name, $value) = $parts;
+        if (preg_match('/^json:(.*)$/', $value, $matches)) {
+            $value = json_decode($matches[1]);
+        }
+        print "setting $name = $value";
+        $req->{$name} = $value;
+    }
+
+    $res = $req->execute();
+
+    print(Yaml::dump($res->data));
+})
+    ->descriptions('Perform a generic request.', [
+        'token' => 'Access token',
+        'path' => 'API path to query.',
+        'parameters' => 'Request parameters in <field>=<value> format. <value> can be "json:<json_string>" for complex data.'
+    ]);
 
 $app->run();

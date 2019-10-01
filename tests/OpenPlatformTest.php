@@ -1,6 +1,7 @@
 <?php
 
 use DDB\OpenPlatform\OpenPlatform;
+use DDB\OpenPlatform\Request\GenericRequest;
 use DDB\OpenPlatform\Request\SearchRequest;
 use DDB\OpenPlatform\Response\Response;
 use Symfony\Component\HttpClient\HttpClient;
@@ -40,5 +41,6 @@ class OpenPlatformTest extends TestCase
 
         $op = new OpenPlatform('the token', $client->reveal());
         $this->assertInstanceOf(SearchRequest::class, $op->searchRequest());
+        $this->assertInstanceOf(GenericRequest::class, $op->genericRequest('/test'));
     }
 }

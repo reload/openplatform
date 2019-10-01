@@ -2,6 +2,7 @@
 
 namespace DDB\OpenPlatform;
 
+use DDB\OpenPlatform\Request\GenericRequest;
 use DDB\OpenPlatform\Request\SearchRequest;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -35,6 +36,11 @@ class OpenPlatform
     public function searchRequest()
     {
         return new SearchRequest($this);
+    }
+
+    public function genericRequest(string $path)
+    {
+        return new GenericRequest($this, $path);
     }
 
     public function request($path, $payload, $class)

@@ -8,10 +8,8 @@ use PHPUnit\Framework\TestCase;
 // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
 class GenericRequestTest extends TestCase
 {
-
     public function testGenericRequest()
     {
-
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', ['aProperty' => 'value'], Response::class)->shouldBeCalled();
 
@@ -20,5 +18,4 @@ class GenericRequestTest extends TestCase
         $req->aProperty = 'value';
         $req->execute();
     }
-
 }

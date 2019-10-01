@@ -10,16 +10,14 @@ use PHPUnit\Framework\TestCase;
 // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
 class BaseRequestTest extends TestCase
 {
-
     public function testSubclassesMustSetAPath()
     {
 
         $op = $this->prophesize(OpenPlatform::class);
         $this->expectException(RuntimeException::class);
-        $req = new class($op->reveal()) extends BaseRequest
-            {
-                protected $properties = ['aProperty' => 'a_property'];
-            };
+        $req = new class($op->reveal()) extends BaseRequest {
+            protected $properties = ['aProperty' => 'a_property'];
+        };
 
         $req->aProperty = 'value';
         $req->execute();
@@ -31,11 +29,10 @@ class BaseRequestTest extends TestCase
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', ['a_property' => 'value'], Response::class)->shouldBeCalled();
 
-        $req = new class($op->reveal()) extends BaseRequest
-            {
-                protected $path = '/test';
-                protected $properties = ['aProperty' => 'a_property', 'bProperty' => 'b_property'];
-            };
+        $req = new class($op->reveal()) extends BaseRequest {
+            protected $path = '/test';
+            protected $properties = ['aProperty' => 'a_property', 'bProperty' => 'b_property'];
+        };
 
         // Setting property.
         $req->aProperty = 'value';
@@ -58,11 +55,10 @@ class BaseRequestTest extends TestCase
 
         $op = $this->prophesize(OpenPlatform::class);
 
-        $req = new class($op->reveal()) extends BaseRequest
-            {
-                protected $path = '/test';
-                protected $properties = ['aProperty' => 'a_property'];
-            };
+        $req = new class($op->reveal()) extends BaseRequest {
+            protected $path = '/test';
+            protected $properties = ['aProperty' => 'a_property'];
+        };
 
         $this->expectException(InvalidPropertyException::class);
         $req->someProperty = 'value';
@@ -73,11 +69,10 @@ class BaseRequestTest extends TestCase
 
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', [], Response::class)->shouldBeCalled();
-        $req = new class($op->reveal()) extends BaseRequest
-            {
-                protected $path = '/test';
-                protected $properties = [];
-            };
+        $req = new class($op->reveal()) extends BaseRequest {
+            protected $path = '/test';
+            protected $properties = [];
+        };
 
         $req->execute();
     }
@@ -88,17 +83,15 @@ class BaseRequestTest extends TestCase
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', ['a_property' => 'value'], SearchResponse::class)->shouldBeCalled();
 
-        $req = new class($op->reveal()) extends BaseRequest
-            {
-                protected $path = '/test';
-                protected $properties = ['aProperty' => 'a_property'];
-                protected $responseClass = SearchResponse::class;
-            };
+        $req = new class($op->reveal()) extends BaseRequest {
+            protected $path = '/test';
+            protected $properties = ['aProperty' => 'a_property'];
+            protected $responseClass = SearchResponse::class;
+        };
 
         // Setting property.
         $req->aProperty = 'value';
 
         $res = $req->execute();
     }
-
 }

@@ -108,5 +108,4 @@ class ResponseTest extends TestCase
         $this->expectExceptionMessage('Unknown error');
         $res->data;
     }
-
 }

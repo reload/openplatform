@@ -27,5 +27,4 @@ class GenericRequest extends BaseRequest
             $this->data[$name] = null;
         }
     }
-
 }

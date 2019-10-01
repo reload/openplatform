@@ -1,5 +1,7 @@
 # OpenPlatform client lib.
 
+[![codecov](https://codecov.io/gh/reload/openplatform/branch/master/graph/badge.svg)](https://codecov.io/gh/reload/openplatform)
+
 This package provides a simple interface to
 [OpenPlatform](https://openplatform.dbc.dk/v3/) provided by DBC.
 

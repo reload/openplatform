@@ -3,6 +3,8 @@
 use DDB\OpenPlatform\OpenPlatform;
 use DDB\OpenPlatform\Exceptions\InvalidPropertyException;
 use DDB\OpenPlatform\Request\BaseRequest;
+use DDB\OpenPlatform\Response\Response;
+use DDB\OpenPlatform\Response\SearchResponse;
 use PHPUnit\Framework\TestCase;
 
 // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
@@ -27,7 +29,7 @@ class BaseRequestTest extends TestCase
     {
 
         $op = $this->prophesize(OpenPlatform::class);
-        $op->request('/test', ['a_property' => 'value'])->shouldBeCalled();
+        $op->request('/test', ['a_property' => 'value'], Response::class)->shouldBeCalled();
 
         $req = new class($op->reveal()) extends BaseRequest
             {
@@ -70,7 +72,7 @@ class BaseRequestTest extends TestCase
     {
 
         $op = $this->prophesize(OpenPlatform::class);
-        $op->request('/test', [])->shouldBeCalled();
+        $op->request('/test', [], Response::class)->shouldBeCalled();
         $req = new class($op->reveal()) extends BaseRequest
             {
                 protected $path = '/test';
@@ -78,6 +80,25 @@ class BaseRequestTest extends TestCase
             };
 
         $req->execute();
+    }
+
+    public function testCustomResponse()
+    {
+
+        $op = $this->prophesize(OpenPlatform::class);
+        $op->request('/test', ['a_property' => 'value'], SearchResponse::class)->shouldBeCalled();
+
+        $req = new class($op->reveal()) extends BaseRequest
+            {
+                protected $path = '/test';
+                protected $properties = ['aProperty' => 'a_property'];
+                protected $responseClass = SearchResponse::class;
+            };
+
+        // Setting property.
+        $req->aProperty = 'value';
+
+        $res = $req->execute();
     }
 
 }

@@ -3,7 +3,6 @@
 namespace DDB\OpenPlatform;
 
 use DDB\OpenPlatform\Request\SearchRequest;
-use DDB\OpenPlatform\Response\Response;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -38,7 +37,7 @@ class OpenPlatform
         return new SearchRequest($this);
     }
 
-    public function request($path, $payload)
+    public function request($path, $payload, $class)
     {
         $payload['access_token'] = $this->token;
 
@@ -50,6 +49,6 @@ class OpenPlatform
             ]
         );
 
-        return new Response($response);
+        return new $class($response);
     }
 }

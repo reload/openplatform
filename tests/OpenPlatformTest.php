@@ -2,6 +2,7 @@
 
 use DDB\OpenPlatform\OpenPlatform;
 use DDB\OpenPlatform\Request\SearchRequest;
+use DDB\OpenPlatform\Response\Response;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -27,7 +28,7 @@ class OpenPlatformTest extends TestCase
         )->willReturn($response)->shouldBeCalled();
 
         $op = new OpenPlatform('the token', $client->reveal());
-        $op->request('/test', ['the' => 'data']);
+        $op->request('/test', ['the' => 'data'], Response::class);
     }
 
     /**

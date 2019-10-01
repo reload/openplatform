@@ -4,6 +4,7 @@ namespace DDB\OpenPlatform\Request;
 
 use DDB\OpenPlatform\Exceptions\InvalidPropertyException;
 use DDB\OpenPlatform\OpenPlatform;
+use DDB\OpenPlatform\Response\Response;
 use RuntimeException;
 
 abstract class BaseRequest
@@ -15,8 +16,28 @@ abstract class BaseRequest
      */
     protected $openPlatform;
 
+    /**
+     * API path of request.
+     *
+     * @var string
+     */
     protected $path;
+
+    /**
+     * Request properties.
+     *
+     * Maps class property name to API property name.
+     *
+     * @var array
+     */
     protected $properties = [];
+
+    /**
+     * Class of response
+     *
+     * @var string
+     */
+    protected $responseClass = Response::class;
 
     protected $data = [];
 
@@ -40,7 +61,7 @@ abstract class BaseRequest
             }
         }
 
-        return $this->openPlatform->request($this->path, $data);
+        return $this->openPlatform->request($this->path, $data, $this->responseClass);
     }
 
     public function __set(string $name, $value) : void

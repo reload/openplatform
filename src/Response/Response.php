@@ -7,6 +7,9 @@ use DDB\OpenPlatform\OpenPlatform;
 use RuntimeException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @property array $data
+ */
 class Response
 {
     protected $data;

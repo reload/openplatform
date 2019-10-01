@@ -2,6 +2,8 @@
 
 namespace DDB\OpenPlatform\Request;
 
+use DDB\OpenPlatform\Response\SearchResponse;
+
 /**
  * Perform a search query.
  *
@@ -32,4 +34,5 @@ class SearchRequest extends BaseRequest
         'sort' => 'sort',
         'profile' => 'profile',
     ];
+    protected $responseClass = SearchResponse::class;
 }

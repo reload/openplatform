@@ -14,7 +14,6 @@ class BaseRequestTest extends TestCase
 {
     public function testSubclassesMustSetAPath()
     {
-
         $op = $this->prophesize(OpenPlatform::class);
         $this->expectException(RuntimeException::class);
         $req = new class($op->reveal()) extends BaseRequest {
@@ -27,7 +26,6 @@ class BaseRequestTest extends TestCase
 
     public function testPropertyAccess()
     {
-
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', ['a_property' => 'value'], Response::class)->shouldBeCalled();
 
@@ -54,7 +52,6 @@ class BaseRequestTest extends TestCase
 
     public function testInvalidProperties()
     {
-
         $op = $this->prophesize(OpenPlatform::class);
 
         $req = new class($op->reveal()) extends BaseRequest {
@@ -68,7 +65,6 @@ class BaseRequestTest extends TestCase
 
     public function testExecute()
     {
-
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', [], Response::class)->shouldBeCalled();
         $req = new class($op->reveal()) extends BaseRequest {
@@ -81,7 +77,6 @@ class BaseRequestTest extends TestCase
 
     public function testCustomResponse()
     {
-
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', ['a_property' => 'value'], SearchResponse::class)->shouldBeCalled();
 

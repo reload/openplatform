@@ -37,19 +37,19 @@ jobs:
     runs-on: ubuntu-latest
     if: '!github.event.deleted'
     strategy:
-        matrix:
-            composer-update: ["", "--prefer-stable --prefer-lowest"]
+      matrix:
+        php-version: ["7.2", "7.3", "7.4"]
+        composer-update: ["", "--prefer-stable --prefer-lowest"]
     steps:
     - uses: actions/checkout@master
-    - name: Composer install
-      uses: MilesChou/composer-action@master
+    - name: Installing PHP
+      uses: shivammathur/setup-php@master
       with:
-        args: install
+        php-version: ${{ matrix.php-version }}
+        # These extensions are required by PHP 7.4
+        extension-csv: mbstring, xmlwriter
     - name: Composer update
-      uses: MilesChou/composer-action@master
-      if: "matrix.composer-update != ''"
-      with:
-        args: update ${{ matrix.composer-update }}
+      run: composer update ${{ matrix.composer-update }}
     - name: Unit tests
       uses: docker://php:7.3-alpine
       with:

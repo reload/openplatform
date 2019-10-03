@@ -1,5 +1,5 @@
 {
-    "name": "danskernesdigitalebibliotek/openplatform",
+    "name": "danskernesdigitalebibliotek/openplatform-client",
     "description": "Client for the Open Platform service for the danish libraries",
     "type": "library",
     "license": "AGPL",

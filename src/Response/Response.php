@@ -24,7 +24,7 @@ class Response
         $this->response = $response;
     }
 
-    public function __set(string $name, $value) : void
+    public function __set(string $name, $value): void
     {
         throw new LogicException('Cannot set proporties on responses.');
     }
@@ -38,13 +38,13 @@ class Response
         return $this->data[$name];
     }
 
-    public function __isset(string $name) : bool
+    public function __isset(string $name): bool
     {
         $this->ensureData();
         return isset($this->data[$name]);
     }
 
-    public function __unset(string $name) : void
+    public function __unset(string $name): void
     {
         throw new LogicException('Cannot set proporties on responses.');
     }
@@ -52,7 +52,7 @@ class Response
     /**
      * Ensure that data property is populated.
      */
-    protected function ensureData() : void
+    protected function ensureData(): void
     {
         if (is_null($this->data)) {
             // We'll  ignore the HTTP status and go by the statusCode provided by the service.

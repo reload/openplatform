@@ -64,7 +64,7 @@ abstract class BaseRequest
         return $this->openPlatform->request($this->path, $data, $this->responseClass);
     }
 
-    public function __set(string $name, $value) : void
+    public function __set(string $name, $value): void
     {
         $this->checkProperty($name);
         $this->data[$name] = $value;
@@ -76,12 +76,12 @@ abstract class BaseRequest
         return $this->data[$name];
     }
 
-    public function __isset(string $name) : bool
+    public function __isset(string $name): bool
     {
         return isset($this->data[$name]);
     }
 
-    public function __unset(string $name) : void
+    public function __unset(string $name): void
     {
         $this->checkProperty($name);
         $this->data[$name] = null;
@@ -90,7 +90,7 @@ abstract class BaseRequest
     /**
      * Check that property is valid.
      */
-    protected function checkProperty($name) : void
+    protected function checkProperty($name): void
     {
         if (!array_key_exists($name, $this->properties)) {
             throw new InvalidPropertyException('Invalid property "' . $name . '"');

@@ -15,7 +15,7 @@ class BaseRequestTest extends TestCase
     {
         $op = $this->prophesize(OpenPlatform::class);
         $this->expectException(RuntimeException::class);
-        $req = new class($op->reveal()) extends BaseRequest {
+        $req = new class ($op->reveal()) extends BaseRequest {
             protected $properties = ['aProperty' => 'a_property'];
         };
 
@@ -28,7 +28,7 @@ class BaseRequestTest extends TestCase
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', ['a_property' => 'value'], Response::class)->shouldBeCalled();
 
-        $req = new class($op->reveal()) extends BaseRequest {
+        $req = new class ($op->reveal()) extends BaseRequest {
             protected $path = '/test';
             protected $properties = ['aProperty' => 'a_property', 'bProperty' => 'b_property'];
         };
@@ -53,7 +53,7 @@ class BaseRequestTest extends TestCase
     {
         $op = $this->prophesize(OpenPlatform::class);
 
-        $req = new class($op->reveal()) extends BaseRequest {
+        $req = new class ($op->reveal()) extends BaseRequest {
             protected $path = '/test';
             protected $properties = ['aProperty' => 'a_property'];
         };
@@ -66,7 +66,7 @@ class BaseRequestTest extends TestCase
     {
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', [], Response::class)->shouldBeCalled();
-        $req = new class($op->reveal()) extends BaseRequest {
+        $req = new class ($op->reveal()) extends BaseRequest {
             protected $path = '/test';
             protected $properties = [];
         };
@@ -79,7 +79,7 @@ class BaseRequestTest extends TestCase
         $op = $this->prophesize(OpenPlatform::class);
         $op->request('/test', ['a_property' => 'value'], SearchResponse::class)->shouldBeCalled();
 
-        $req = new class($op->reveal()) extends BaseRequest {
+        $req = new class ($op->reveal()) extends BaseRequest {
             protected $path = '/test';
             protected $properties = ['aProperty' => 'a_property'];
             protected $responseClass = SearchResponse::class;

@@ -11,7 +11,7 @@ class ResponseTest extends TestCase
 {
     protected $response;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $data = [
             'statusCode' => 200,

@@ -31,7 +31,8 @@ foreach ($res->data as $material) {
 
 In short:
 
-1. Create an OpenPlatform instance and supply it a token.
+1. Create an OpenPlatform instance and supply it a token (see [How to
+   obtain a token](#how-to-obtain-a-token)).
 2. Call a `*Request` method to get a request instance.
 3. Request parameters are supplied as properties on the request object
    and are documented with `@property`, so your IDE should provide
@@ -60,3 +61,13 @@ performed in parallel when accessing data on any one.
 The library includes a CLI command, `bin/openplatform`, which
 functions both as a practical example, and as an exploratory tool. You
 need to install dev dependence for the project in order to use it.
+
+## How to obtain a token
+
+You can get a token keyed to a user by authenticating the user with
+[Adgangsplatformen](https://github.com/DBCDK/hejmdal). You can use
+[oauth2-adgangsplatformen](https://github.com/reload/oauth2-adgangsplatformen)
+for communicating with the service.
+
+If you have a client id and secret, you can generate a token for
+testing at https://openplatform.dbc.dk/v3/ .

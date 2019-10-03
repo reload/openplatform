@@ -19,7 +19,10 @@ class GenericRequest extends BaseRequest
         parent::__construct($openPlatform);
     }
 
-    protected function checkProperty($name)
+    /**
+     * Override checkProperty to allow any property.
+     */
+    protected function checkProperty($name): void
     {
         // Allow any property.
         if (!array_key_exists($name, $this->properties)) {

@@ -87,7 +87,10 @@ abstract class BaseRequest
         $this->data[$name] = null;
     }
 
-    protected function checkProperty($name)
+    /**
+     * Check that property is valid.
+     */
+    protected function checkProperty($name) : void
     {
         if (!array_key_exists($name, $this->properties)) {
             throw new InvalidPropertyException('Invalid property "' . $name . '"');

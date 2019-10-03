@@ -1,11 +1,12 @@
 <?php
 
+namespace DDB\OpenPlatform\Response;
+
 use DDB\OpenPlatform\Exceptions\RequestError;
-use DDB\OpenPlatform\Response\Response;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-// phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
 class ResponseTest extends TestCase
 {
     protected $response;

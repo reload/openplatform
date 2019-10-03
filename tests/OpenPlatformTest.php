@@ -1,5 +1,7 @@
 <?php
 
+namespace DDB\OpenPlatform;
+
 use DDB\OpenPlatform\OpenPlatform;
 use DDB\OpenPlatform\Request\GenericRequest;
 use DDB\OpenPlatform\Request\SearchRequest;
@@ -10,7 +12,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
-// phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
 class OpenPlatformTest extends TestCase
 {
 

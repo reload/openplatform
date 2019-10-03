@@ -1,13 +1,15 @@
 <?php
 
-use DDB\OpenPlatform\OpenPlatform;
+namespace DDB\OpenPlatform\Request;
+
 use DDB\OpenPlatform\Exceptions\InvalidPropertyException;
+use DDB\OpenPlatform\OpenPlatform;
 use DDB\OpenPlatform\Request\BaseRequest;
 use DDB\OpenPlatform\Response\Response;
 use DDB\OpenPlatform\Response\SearchResponse;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
-// phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
 class BaseRequestTest extends TestCase
 {
     public function testSubclassesMustSetAPath()

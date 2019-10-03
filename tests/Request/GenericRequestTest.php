@@ -3,7 +3,6 @@
 namespace DDB\OpenPlatform\Request;
 
 use DDB\OpenPlatform\OpenPlatform;
-use DDB\OpenPlatform\Request\GenericRequest;
 use DDB\OpenPlatform\Response\Response;
 use PHPUnit\Framework\TestCase;
 

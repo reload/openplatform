@@ -8,4 +8,5 @@ parameters:
     ignoreErrors:
         # Ignore some errors triggered by testing.
         - '#Access to an undefined property class@anonymous/tests/BaseRequestTest#'
-        - '#Access to an undefined property#'
+        - '#Access to an undefined property DDB\\OpenPlatform\\Response\\Response::\$unknown#'
+        - '#Access to an undefined property DDB\\OpenPlatform\\Request\\GenericRequest::\$aProperty#'

@@ -31,7 +31,7 @@ class ResponseTest extends TestCase
     {
         $res = new Response($this->response->reveal());
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(LogicException::class);
         $res->data = ['test'];
     }
 
@@ -39,7 +39,7 @@ class ResponseTest extends TestCase
     {
         $res = new Response($this->response->reveal());
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(LogicException::class);
         unset($res->data);
     }
 
@@ -47,7 +47,7 @@ class ResponseTest extends TestCase
     {
         $res = new Response($this->response->reveal());
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(LogicException::class);
         $res->unknown;
     }
 

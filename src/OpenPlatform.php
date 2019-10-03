@@ -23,7 +23,15 @@ class OpenPlatform
      */
     protected $token;
 
-    public function __construct($token, HttpClientInterface $client = null)
+    /**
+     * Create new client.
+     *
+     * @param string $token
+     *   Token for authentication. See the readme for details on how to obtain one.
+     * @param \Symfony\Contracts\HttpClient\HttpClientInterface $client
+     *   HTTP client to use for requests.
+     */
+    public function __construct(string $token, HttpClientInterface $client = null)
     {
         $this->token = $token;
 
@@ -33,17 +41,36 @@ class OpenPlatform
         $this->client = $client;
     }
 
-    public function searchRequest()
+    /**
+     * Get a new search request.
+     */
+    public function searchRequest(): SearchRequest
     {
         return new SearchRequest($this);
     }
 
-    public function genericRequest(string $path)
+    /**
+     * Get a new generic request.
+     */
+    public function genericRequest(string $path): GenericRequest
     {
         return new GenericRequest($this, $path);
     }
 
-    public function request($path, $payload, $class)
+    /**
+     * Perform a request.
+     *
+     * @param string $path
+     *   Path of the particular call. '/search' for instance.
+     * @param array $payload
+     *   Payload to send to the call, ie. the parameters.
+     * @param string $class
+     *   Response class. Will be instantiated with the call response.
+     *
+     * @return object
+     *   Instance of the class provided by the class parameter.
+     */
+    public function request(string $path, array $payload, string $class)
     {
         $payload['access_token'] = $this->token;
 

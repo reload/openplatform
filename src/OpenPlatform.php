@@ -34,11 +34,7 @@ class OpenPlatform
     public function __construct(string $token, HttpClientInterface $client = null)
     {
         $this->token = $token;
-
-        if (!$client) {
-            $client = HttpClient::create();
-        }
-        $this->client = $client;
+        $this->client = $client ?? HttpClient::create();
     }
 
     /**

@@ -69,5 +69,5 @@ You can get a token keyed to a user by authenticating the user with
 [oauth2-adgangsplatformen](https://github.com/reload/oauth2-adgangsplatformen)
 for communicating with the service.
 
-If you have a client id and secret, you can generate a token for
-testing at https://openplatform.dbc.dk/v3/ .
+If you have a client id and secret, you can generate a token at
+https://openplatform.dbc.dk/v3/ .

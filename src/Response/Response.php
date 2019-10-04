@@ -9,10 +9,10 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * @property int $statusCode
- *   The request status code.
+ *   The response status code.
  * @property array $data
  *   The data requested.
- * @property array $errors
+ * @property string[] $errors
  *   Array of any errors.
  * @property array $timings
  *   Timing information, if requested.

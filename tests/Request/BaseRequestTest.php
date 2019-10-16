@@ -20,6 +20,21 @@ class BaseRequestTest extends TestCase
         $req->execute();
     }
 
+    public function testWithReturnsNewInstance()
+    {
+        $op = $this->prophesize(OpenPlatform::class);
+        $op->request('/test', ['a_property' => 'value'], Response::class)->shouldBeCalled();
+
+        $req = new class ($op->reveal()) extends BaseRequest {
+            protected $path = '/test';
+        };
+
+        $req2 = $req->with('a_property', 'value');
+
+        $this->assertNotEquals($req, $req2);
+        $res = $req2->execute();
+    }
+
     public function testExecute()
     {
         $op = $this->prophesize(OpenPlatform::class);
@@ -43,7 +58,7 @@ class BaseRequestTest extends TestCase
         };
 
         // Setting property.
-        $req->set('aProperty', 'value');
+        $req = $req->with('aProperty', 'value');
 
         $res = $req->execute();
     }

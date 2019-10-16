@@ -2,6 +2,7 @@
 
 namespace DDB\OpenPlatform\Request;
 
+use DDB\OpenPlatform\OpenPlatform;
 use DDB\OpenPlatform\Response\SearchResponse;
 use LogicException;
 
@@ -28,62 +29,52 @@ class SearchRequest extends BaseRequest
     protected $path = '/search';
     protected $responseClass = SearchResponse::class;
 
-    public function execute()
+    public function __construct(OpenPlatform $openplatform, string $query)
     {
-        if (!isset($this->data['q'])) {
-            throw new LogicException('query parameter required for search');
-        }
-
-        return parent::execute();
+        parent::__construct($openplatform);
+        $this->data['q'] = $query;
     }
 
     /**
-     * Set the query to run.
+     * Request fields in response.
      *
-     * Required.
+     * A list of possible fields can be found at
+     * https://raw.githubusercontent.com/DBCDK/serviceprovider/master/doc/work-context.jsonld
      */
-    public function setQuery(string $query)
+    public function withFields(array $fields)
     {
-        $this->set('q', $query);
+        return $this->with('fields', $fields);
     }
 
     /**
-     * Set fields to request per material.
+     * Set starting offwith in result.
      */
-    public function setFields(array $fields)
+    public function withOffset(int $offset)
     {
-        $this->set('fields', $fields);
-    }
-
-    /**
-     * Set starting offset in result.
-     */
-    public function setOffset(int $offset)
-    {
-        $this->set('offset', $offset);
+        return $this->with('offset', $offset);
     }
 
     /**
      * Set maximum number of results returned.
      */
-    public function setLimit(int $limit)
+    public function withLimit(int $limit)
     {
-        $this->set('limit', $limit);
+        return $this->with('limit', $limit);
     }
 
     /**
      * Set sort order.
      */
-    public function setSort(string $sort)
+    public function withSort(string $sort)
     {
-        $this->set('sort', $sort);
+        return $this->with('sort', $sort);
     }
 
     /**
      * Set search profile.
      */
-    public function setProfile(string $profile)
+    public function withProfile(string $profile)
     {
-        $this->set('profile', $profile);
+        return $this->with('profile', $profile);
     }
 }

@@ -48,15 +48,17 @@ abstract class BaseRequest
     }
 
     /**
-     * Set request parameter.
+     * Return new request with added parameter.
      *
      * @param string $name
      *   Parameter name.
      * @param mixed $value
      *   Parameter value.
      */
-    public function set($name, $value)
+    public function with($name, $value): self
     {
-        $this->data[$name] = $value;
+        $new = clone $this;
+        $new->data[$name] = $value;
+        return $new;
     }
 }

@@ -21,23 +21,12 @@ class SearchRequestTest extends TestCase
             'profile' => 'opac',
         ];
         $op->request('/search', $requestData, SearchResponse::class)->shouldBeCalled();
-        $req = new SearchRequest($op->reveal());
-
-        $req->setQuery($requestData['q']);
-        $req->setFields($requestData['fields']);
-        $req->setOffset($requestData['offset']);
-        $req->setLimit($requestData['limit']);
-        $req->setSort($requestData['sort']);
-        $req->setProfile($requestData['profile']);
-
-        $req->execute();
-    }
-
-    public function testQueryRequired()
-    {
-        $op = $this->prophesize(OpenPlatform::class);
-        $this->expectException(LogicException::class);
-        $req = new SearchRequest($op->reveal());
+        $req = (new SearchRequest($op->reveal(), $requestData['q']))
+            ->withFields($requestData['fields'])
+            ->withOffset($requestData['offset'])
+            ->withLimit($requestData['limit'])
+            ->withSort($requestData['sort'])
+            ->withProfile($requestData['profile']);
 
         $req->execute();
     }

@@ -18,11 +18,9 @@ A working example:
 ``` php
 $op = new OpenPlatform($token);
 
-$req = $op->searchRequest();
-$req->setQuery('harry AND potter');
-$req->setFields(['pid', 'title']);
-
-$res = $req->execute();
+$res = $op->search('harry AND potter')
+    ->withFields(['pid', 'title'])
+    ->execute();
 
 foreach ($res->getData() as $material) {
     print $material['pid'][0] . ': ' . $material['title'][0] . "\n";
@@ -33,9 +31,9 @@ In short:
 
 1. Create an OpenPlatform instance and supply it a token (see [How to
    obtain a token](#how-to-obtain-a-token)).
-2. Call a `*Request` method to get a request instance.
-3. Request parameters are supplied with setters.
-4. Call execute to get a lazy loading result.
+2. Call a method that returns a `*Request` object.
+3. Chain with `with*` methods to set parameters.
+4. End with `execute` to get a lazy loading result.
 5. Get response data from getters on the response object.
 
 ### Generic requests

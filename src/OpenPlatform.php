@@ -39,16 +39,22 @@ class OpenPlatform
 
     /**
      * Get a new search request.
+     *
+     * @param string $query
+     *   CQL query to run.
      */
-    public function searchRequest(): SearchRequest
+    public function search(string $query): SearchRequest
     {
-        return new SearchRequest($this);
+        return new SearchRequest($this, $query);
     }
 
     /**
      * Get a new generic request.
+     *
+     * @param string $path
+     *   The path of the resource.
      */
-    public function genericRequest(string $path): GenericRequest
+    public function generic(string $path): GenericRequest
     {
         return new GenericRequest($this, $path);
     }

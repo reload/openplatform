@@ -11,10 +11,9 @@ $app = new Silly\Application();
 $app->command('search [--fields=] token query', function ($fields, $token, $query) {
     $op = new OpenPlatform($token);
 
-    $req = $op->searchRequest();
-    $req->setQuery($query);
+    $req = $op->search($query);
     if ($fields) {
-        $req->setFields(explode(',', $fields));
+        $req = $req->withFields(explode(',', $fields));
     }
 
     $res = $req->execute();
@@ -42,7 +41,7 @@ $app->command('generic token path parameters*', function ($token, $path, $parame
         if (preg_match('/^json:(.*)$/', $value, $matches)) {
             $value = json_decode($matches[1]);
         }
-        $req->set($name, $value);
+        $req  = $req->with($name, $value);
     }
 
     $res = $req->execute();

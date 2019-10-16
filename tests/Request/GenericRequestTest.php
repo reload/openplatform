@@ -15,7 +15,7 @@ class GenericRequestTest extends TestCase
 
         $req = new GenericRequest($op->reveal(), '/test');
 
-        $req->set('aProperty', 'value');
+        $req = $req->with('aProperty', 'value');
         $req->execute();
     }
 }

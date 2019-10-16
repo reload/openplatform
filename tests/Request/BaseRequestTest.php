@@ -23,7 +23,9 @@ class BaseRequestTest extends TestCase
     public function testWithReturnsNewInstance()
     {
         $op = $this->prophesize(OpenPlatform::class);
-        $op->request('/test', ['a_property' => 'value'], Response::class)->shouldBeCalled();
+        $op->request('/test', ['a_property' => 'value'], Response::class)
+            ->willReturn($this->prophesize(Response::class))
+            ->shouldBeCalled();
 
         $req = new class ($op->reveal()) extends BaseRequest {
             protected $path = '/test';
@@ -38,7 +40,9 @@ class BaseRequestTest extends TestCase
     public function testExecute()
     {
         $op = $this->prophesize(OpenPlatform::class);
-        $op->request('/test', [], Response::class)->shouldBeCalled();
+        $op->request('/test', [], Response::class)
+            ->willReturn($this->prophesize(Response::class))
+            ->shouldBeCalled();
         $req = new class ($op->reveal()) extends BaseRequest {
             protected $path = '/test';
             protected $properties = [];
@@ -50,7 +54,9 @@ class BaseRequestTest extends TestCase
     public function testCustomResponse()
     {
         $op = $this->prophesize(OpenPlatform::class);
-        $op->request('/test', ['aProperty' => 'value'], SearchResponse::class)->shouldBeCalled();
+        $op->request('/test', ['aProperty' => 'value'], SearchResponse::class)
+            ->willReturn($this->prophesize(SearchResponse::class))
+            ->shouldBeCalled();
 
         $req = new class ($op->reveal()) extends BaseRequest {
             protected $path = '/test';

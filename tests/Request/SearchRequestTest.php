@@ -20,7 +20,10 @@ class SearchRequestTest extends TestCase
             'sort' => SearchRequest::SORT_TITLE,
             'profile' => 'opac',
         ];
-        $op->request('/search', $requestData, SearchResponse::class)->shouldBeCalled();
+        $op->request('/search', $requestData, SearchResponse::class)
+            ->willReturn($this->prophesize(SearchResponse::class))
+            ->shouldBeCalled();
+
         $req = (new SearchRequest($op->reveal(), $requestData['q']))
             ->withFields($requestData['fields'])
             ->withOffset($requestData['offset'])

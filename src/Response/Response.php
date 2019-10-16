@@ -31,6 +31,9 @@ class Response
         $this->response = $response;
     }
 
+    /**
+     * Get a response property.
+     */
     public function get(string $name)
     {
         $this->ensureData();
@@ -40,16 +43,22 @@ class Response
         return $this->responseData[$name];
     }
 
-    public function getResponse()
-    {
-        $this->ensureData();
-        return $this->responseData;
-    }
-
+    /**
+     * Return whether a given property exists.
+     */
     public function has(string $name): bool
     {
         $this->ensureData();
         return isset($this->responseData[$name]);
+    }
+
+    /**
+     * Return the full response.
+     */
+    public function getResponse(): array
+    {
+        $this->ensureData();
+        return $this->responseData;
     }
 
     /**

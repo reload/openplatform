@@ -11,7 +11,9 @@ class GenericRequestTest extends TestCase
     public function testGenericRequest()
     {
         $op = $this->prophesize(OpenPlatform::class);
-        $op->request('/test', ['aProperty' => 'value'], Response::class)->shouldBeCalled();
+        $op->request('/test', ['aProperty' => 'value'], Response::class)
+            ->willReturn($this->prophesize(Response::class))
+            ->shouldBeCalled();
 
         $req = new GenericRequest($op->reveal(), '/test');
 

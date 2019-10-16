@@ -42,7 +42,7 @@ abstract class BaseRequest
         }
     }
 
-    public function execute()
+    public function execute(): Response
     {
         return $this->openPlatform->request($this->path, $this->data, $this->responseClass);
     }
@@ -55,7 +55,7 @@ abstract class BaseRequest
      * @param mixed $value
      *   Parameter value.
      */
-    public function with($name, $value): self
+    public function with(string $name, $value): self
     {
         $new = clone $this;
         $new->data[$name] = $value;

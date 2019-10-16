@@ -19,12 +19,12 @@ A working example:
 $op = new OpenPlatform($token);
 
 $req = $op->searchRequest();
-$req->query = 'harry AND potter';
-$req->fields = ['pid', 'title'];
+$req->setQuery('harry AND potter');
+$req->setFields(['pid', 'title']);
 
 $res = $req->execute();
 
-foreach ($res->data as $material) {
+foreach ($res->getData() as $material) {
     print $material['pid'][0] . ': ' . $material['title'][0] . "\n";
 }
 ```
@@ -34,12 +34,9 @@ In short:
 1. Create an OpenPlatform instance and supply it a token (see [How to
    obtain a token](#how-to-obtain-a-token)).
 2. Call a `*Request` method to get a request instance.
-3. Request parameters are supplied as properties on the request object
-   and are documented with `@property`, so your IDE should provide
-   useful completion.
+3. Request parameters are supplied with setters.
 4. Call execute to get a lazy loading result.
-5. Access response data as properties, or use any helper methods the
-   Response classes provide.
+5. Get response data from getters on the response object.
 
 ### Generic requests
 

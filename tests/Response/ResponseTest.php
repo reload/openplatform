@@ -25,23 +25,7 @@ class ResponseTest extends TestCase
     {
         $res = new Response($this->response->reveal());
 
-        $this->assertEquals(['some' => 'data'], $res->data);
-    }
-
-    public function testSettingThrows()
-    {
-        $res = new Response($this->response->reveal());
-
-        $this->expectException(LogicException::class);
-        $res->data = ['test'];
-    }
-
-    public function testUnsettingThrows()
-    {
-        $res = new Response($this->response->reveal());
-
-        $this->expectException(LogicException::class);
-        unset($res->data);
+        $this->assertEquals(['some' => 'data'], $res->get('data'));
     }
 
     public function testGettingUndefinedThrows()
@@ -49,17 +33,31 @@ class ResponseTest extends TestCase
         $res = new Response($this->response->reveal());
 
         $this->expectException(LogicException::class);
-        $res->unknown;
+        $res->get('unknown');
     }
 
-    public function testIsset()
+    public function testHas()
     {
         $res = new Response($this->response->reveal());
 
-        $this->assertTrue(isset($res->data));
-        $this->assertNotTrue(isset($res->nodata));
+        $this->assertTrue($res->has('data'));
+        $this->assertNotTrue($res->has('unknown'));
     }
 
+    public function testGetResponse()
+    {
+        $data = [
+            'statusCode' => 200,
+            'data' => ['some' => 'data'],
+        ];
+        $res = new Response($this->response->reveal());
+
+        $this->assertEquals($data, $res->getResponse());
+    }
+
+    /**
+     * Test that we use error_description if it's available.
+     */
     public function testErrorDescription()
     {
         $data = [
@@ -74,9 +72,12 @@ class ResponseTest extends TestCase
 
         $this->expectException(RequestError::class);
         $this->expectExceptionMessage('error message');
-        $res->data;
+        $res->get('data');
     }
 
+    /**
+     * Test that we use error if it's available.
+     */
     public function testError()
     {
         $data = [
@@ -91,9 +92,13 @@ class ResponseTest extends TestCase
 
         $this->expectException(RequestError::class);
         $this->expectExceptionMessage('error message');
-        $res->data;
+        $res->get('data');
     }
 
+    /**
+     * Test error message if no error descriptions was supplied in the
+     * response.
+     */
     public function testErrorWithoutMessage()
     {
         $data = [
@@ -107,6 +112,6 @@ class ResponseTest extends TestCase
 
         $this->expectException(RequestError::class);
         $this->expectExceptionMessage('Unknown error');
-        $res->data;
+        $res->get('data');
     }
 }

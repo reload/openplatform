@@ -31,12 +31,7 @@ class Response
         $this->response = $response;
     }
 
-    public function __set(string $name, $value): void
-    {
-        throw new LogicException('Cannot set proporties on responses.');
-    }
-
-    public function __get(string $name)
+    public function get(string $name)
     {
         $this->ensureData();
         if (!array_key_exists($name, $this->responseData)) {
@@ -45,15 +40,16 @@ class Response
         return $this->responseData[$name];
     }
 
-    public function __isset(string $name): bool
+    public function getResponse()
+    {
+        $this->ensureData();
+        return $this->responseData;
+    }
+
+    public function has(string $name): bool
     {
         $this->ensureData();
         return isset($this->responseData[$name]);
-    }
-
-    public function __unset(string $name): void
-    {
-        throw new LogicException('Cannot set proporties on responses.');
     }
 
     /**

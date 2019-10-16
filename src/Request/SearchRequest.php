@@ -3,22 +3,10 @@
 namespace DDB\OpenPlatform\Request;
 
 use DDB\OpenPlatform\Response\SearchResponse;
+use LogicException;
 
 /**
  * Perform a search query.
- *
- * @property array $fields
- *   Fields to request per material.
- * @property string $query
- *   The query to run. Required.
- * @property int $offset
- *   Starting offset in result.
- * @property int $limit
- *   Maximum number of results returned.
- * @property string $sort
- *   Sort order.
- * @property string $profile
- *   Search profile.
  *
  * For further information, see the /search call at
  * https://openplatform.dbc.dk/v3/
@@ -38,13 +26,64 @@ class SearchRequest extends BaseRequest
     public const SORT_ACQUISITION_DATE_DESC = 'acquisitionDate_descending';
 
     protected $path = '/search';
-    protected $properties = [
-        'fields' => 'fields',
-        'query' => 'q',
-        'offset' => 'offset',
-        'limit' => 'limit',
-        'sort' => 'sort',
-        'profile' => 'profile',
-    ];
     protected $responseClass = SearchResponse::class;
+
+    public function execute()
+    {
+        if (!isset($this->data['q'])) {
+            throw new LogicException('query parameter required for search');
+        }
+
+        return parent::execute();
+    }
+
+    /**
+     * Set the query to run.
+     *
+     * Required.
+     */
+    public function setQuery(string $query)
+    {
+        $this->set('q', $query);
+    }
+
+    /**
+     * Set fields to request per material.
+     */
+    public function setFields(array $fields)
+    {
+        $this->set('fields', $fields);
+    }
+
+    /**
+     * Set starting offset in result.
+     */
+    public function setOffset(int $offset)
+    {
+        $this->set('offset', $offset);
+    }
+
+    /**
+     * Set maximum number of results returned.
+     */
+    public function setLimit(int $limit)
+    {
+        $this->set('limit', $limit);
+    }
+
+    /**
+     * Set sort order.
+     */
+    public function setSort(string $sort)
+    {
+        $this->set('sort', $sort);
+    }
+
+    /**
+     * Set search profile.
+     */
+    public function setProfile(string $profile)
+    {
+        $this->set('profile', $profile);
+    }
 }

@@ -5,9 +5,3 @@ parameters:
         - tests
     autoload_directories:
     	- tests
-    ignoreErrors:
-        # Ignore some errors triggered by testing.
-        -
-            message: '#Access to an undefined property#'
-            paths:
-                - tests

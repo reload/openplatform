@@ -7,16 +7,6 @@ use DDB\OpenPlatform\OpenPlatform;
 use LogicException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/**
- * @property int $statusCode
- *   The response status code.
- * @property array $data
- *   The data requested.
- * @property string[] $errors
- *   Array of any errors.
- * @property array $timings
- *   Timing information, if requested.
- */
 class Response
 {
     protected $responseData;

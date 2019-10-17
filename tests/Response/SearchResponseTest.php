@@ -25,7 +25,7 @@ class SearchResponseTest extends TestCase
     {
         $res = new SearchResponse($this->response->reveal());
 
-        $this->assertEquals(['some' => 'data'], $res->getData());
+        $this->assertEquals(['some' => 'data'], $res->getMaterials());
         $this->assertEquals(42, $res->getHitCount());
         $this->assertTrue($res->getMore());
     }

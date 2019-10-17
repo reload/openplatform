@@ -7,7 +7,7 @@ class SearchResponse extends Response
     /**
      * Get response materials.
      */
-    public function getData()
+    public function getMaterials()
     {
         return $this->get('data');
     }

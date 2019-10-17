@@ -2,23 +2,12 @@
 
 namespace DDB\OpenPlatform\Request;
 
+use DDB\OpenPlatform\OpenPlatform;
 use DDB\OpenPlatform\Response\SearchResponse;
+use LogicException;
 
 /**
  * Perform a search query.
- *
- * @property array $fields
- *   Fields to request per material.
- * @property string $query
- *   The query to run. Required.
- * @property int $offset
- *   Starting offset in result.
- * @property int $limit
- *   Maximum number of results returned.
- * @property string $sort
- *   Sort order.
- * @property string $profile
- *   Search profile.
  *
  * For further information, see the /search call at
  * https://openplatform.dbc.dk/v3/
@@ -38,13 +27,54 @@ class SearchRequest extends BaseRequest
     public const SORT_ACQUISITION_DATE_DESC = 'acquisitionDate_descending';
 
     protected $path = '/search';
-    protected $properties = [
-        'fields' => 'fields',
-        'query' => 'q',
-        'offset' => 'offset',
-        'limit' => 'limit',
-        'sort' => 'sort',
-        'profile' => 'profile',
-    ];
     protected $responseClass = SearchResponse::class;
+
+    public function __construct(OpenPlatform $openplatform, string $query)
+    {
+        parent::__construct($openplatform);
+        $this->data['q'] = $query;
+    }
+
+    /**
+     * Request fields in response.
+     *
+     * A list of possible fields can be found at
+     * https://raw.githubusercontent.com/DBCDK/serviceprovider/master/doc/work-context.jsonld
+     */
+    public function withFields(array $fields)
+    {
+        return $this->with('fields', $fields);
+    }
+
+    /**
+     * Set starting offwith in result.
+     */
+    public function withOffset(int $offset)
+    {
+        return $this->with('offset', $offset);
+    }
+
+    /**
+     * Set maximum number of results returned.
+     */
+    public function withLimit(int $limit)
+    {
+        return $this->with('limit', $limit);
+    }
+
+    /**
+     * Set sort order.
+     */
+    public function withSort(string $sort)
+    {
+        return $this->with('sort', $sort);
+    }
+
+    /**
+     * Set search profile.
+     */
+    public function withProfile(string $profile)
+    {
+        return $this->with('profile', $profile);
+    }
 }

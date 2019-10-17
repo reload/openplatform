@@ -11,16 +11,15 @@ $app = new Silly\Application();
 $app->command('search [--fields=] token query', function ($fields, $token, $query) {
     $op = new OpenPlatform($token);
 
-    $req = $op->searchRequest();
-    $req->query = $query;
+    $req = $op->search($query);
     if ($fields) {
-        $req->fields = explode(',', $fields);
+        $req = $req->withFields(explode(',', $fields));
     }
 
     $res = $req->execute();
 
-    print(Yaml::dump($res->data));
-    print "Hitcount: " . $res->hitCount . "\n";
+    print(Yaml::dump($res->getData()));
+    print "Hitcount: " . $res->getHitCount() . "\n";
 })
     ->descriptions('Perform a search request', [
         '--fields' => 'Comma separated list of fields to fetch',
@@ -42,13 +41,12 @@ $app->command('generic token path parameters*', function ($token, $path, $parame
         if (preg_match('/^json:(.*)$/', $value, $matches)) {
             $value = json_decode($matches[1]);
         }
-        print "setting $name = $value";
-        $req->{$name} = $value;
+        $req  = $req->with($name, $value);
     }
 
     $res = $req->execute();
 
-    print(Yaml::dump($res->data));
+    print(Yaml::dump($res->getResponse()));
 })
     ->descriptions('Perform a generic request.', [
         'token' => 'Access token',

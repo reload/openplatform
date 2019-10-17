@@ -40,7 +40,7 @@ class OpenPlatformTest extends TestCase
         $client = $this->prophesize(HttpClientInterface::class);
 
         $op = new OpenPlatform('the token', $client->reveal());
-        $this->assertInstanceOf(SearchRequest::class, $op->searchRequest());
-        $this->assertInstanceOf(GenericRequest::class, $op->genericRequest('/test'));
+        $this->assertInstanceOf(SearchRequest::class, $op->search('test'));
+        $this->assertInstanceOf(GenericRequest::class, $op->generic('/test'));
     }
 }

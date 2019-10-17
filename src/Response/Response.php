@@ -7,16 +7,6 @@ use DDB\OpenPlatform\OpenPlatform;
 use LogicException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/**
- * @property int $statusCode
- *   The response status code.
- * @property array $data
- *   The data requested.
- * @property string[] $errors
- *   Array of any errors.
- * @property array $timings
- *   Timing information, if requested.
- */
 class Response
 {
     protected $responseData;
@@ -31,12 +21,10 @@ class Response
         $this->response = $response;
     }
 
-    public function __set(string $name, $value): void
-    {
-        throw new LogicException('Cannot set proporties on responses.');
-    }
-
-    public function __get(string $name)
+    /**
+     * Get a response property.
+     */
+    public function get(string $name)
     {
         $this->ensureData();
         if (!array_key_exists($name, $this->responseData)) {
@@ -45,15 +33,22 @@ class Response
         return $this->responseData[$name];
     }
 
-    public function __isset(string $name): bool
+    /**
+     * Return whether a given property exists.
+     */
+    public function has(string $name): bool
     {
         $this->ensureData();
         return isset($this->responseData[$name]);
     }
 
-    public function __unset(string $name): void
+    /**
+     * Return the full response.
+     */
+    public function getResponse(): array
     {
-        throw new LogicException('Cannot set proporties on responses.');
+        $this->ensureData();
+        return $this->responseData;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace DDB\OpenPlatform;
 
 use DDB\OpenPlatform\Request\GenericRequest;
 use DDB\OpenPlatform\Request\SearchRequest;
+use DDB\OpenPlatform\Response\Response;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -39,16 +40,22 @@ class OpenPlatform
 
     /**
      * Get a new search request.
+     *
+     * @param string $query
+     *   CQL query to run.
      */
-    public function searchRequest(): SearchRequest
+    public function search(string $query): SearchRequest
     {
-        return new SearchRequest($this);
+        return new SearchRequest($this, $query);
     }
 
     /**
      * Get a new generic request.
+     *
+     * @param string $path
+     *   The path of the resource.
      */
-    public function genericRequest(string $path): GenericRequest
+    public function generic(string $path): GenericRequest
     {
         return new GenericRequest($this, $path);
     }
@@ -63,10 +70,10 @@ class OpenPlatform
      * @param string $class
      *   Response class. Will be instantiated with the call response.
      *
-     * @return object
+     * @return \DDB\OpenPlatform\Response\Response
      *   Instance of the class provided by the class parameter.
      */
-    public function request(string $path, array $payload, string $class)
+    public function request(string $path, array $payload, string $class): Response
     {
         $payload['access_token'] = $this->token;
 

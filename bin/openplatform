@@ -18,7 +18,7 @@ $app->command('search [--fields=] token query', function ($fields, $token, $quer
 
     $res = $req->execute();
 
-    print(Yaml::dump($res->getData()));
+    print(Yaml::dump($res->getMaterials()));
     print "Hitcount: " . $res->getHitCount() . "\n";
 })
     ->descriptions('Perform a search request', [
@@ -30,7 +30,7 @@ $app->command('search [--fields=] token query', function ($fields, $token, $quer
 $app->command('generic token path parameters*', function ($token, $path, $parameters) {
     $op = new OpenPlatform($token);
 
-    $req = $op->genericRequest($path);
+    $req = $op->generic($path);
 
     foreach ($parameters as $parameter) {
         $parts = explode('=', $parameter);

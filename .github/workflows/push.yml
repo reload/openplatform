@@ -1,37 +1,6 @@
 on: push
 name: Build and test
 jobs:
-  check_codestyle:
-    name: Codestyle
-    runs-on: ubuntu-latest
-    if: '!github.event.deleted'
-    steps:
-    - uses: actions/checkout@master
-    - name: Composer install
-      uses: MilesChou/composer-action@master
-      with:
-        args: install
-    - name: Check codestyle
-      uses: docker://php:7.3-alpine
-      with:
-        entrypoint: vendor/bin/phpcs
-
-  static_code_analysis:
-    name: Static Code Analysis
-    runs-on: ubuntu-latest
-    if: '!github.event.deleted'
-    steps:
-    - uses: actions/checkout@master
-    - name: Composer install
-      uses: MilesChou/composer-action@master
-      with:
-        args: install
-    - name: Static code analysis
-      uses: docker://php:7.3-alpine
-      with:
-        entrypoint: vendor/bin/phpstan
-        args: analyse
-
   unit_tests:
     name: Unit tests
     runs-on: ubuntu-latest

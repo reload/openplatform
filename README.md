@@ -1,5 +1,7 @@
 # OpenPlatform client lib.
 
+[![](https://github.com/reload/openplatform-client/workflows/Build%20and%20test/badge.svg)](https://github.com/reload/openplatform-client/actions?query=workflow%3A%22Build+and+test%22)
+[![](https://github.com/reload/openplatform-client/workflows/Code%20style%20review/badge.svg)](https://github.com/reload/openplatform-client/actions?query=workflow%3A%22Code+style+review%22)
 [![codecov](https://codecov.io/gh/reload/openplatform-client/branch/master/graph/badge.svg)](https://codecov.io/gh/reload/openplatform-client)
 
 This package provides a simple interface to

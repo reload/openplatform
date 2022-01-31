@@ -4,7 +4,7 @@
     "type": "library",
     "license": "AGPL",
     "require": {
-        "symfony/http-client": "^4.3"
+        "symfony/http-client": "^5.4.0"
     },
     "autoload": {
         "psr-4": {

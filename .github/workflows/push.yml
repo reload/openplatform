@@ -7,7 +7,7 @@ jobs:
     if: '!github.event.deleted'
     strategy:
       matrix:
-        php-version: ["7.1", "7.2", "7.3", "7.4"]
+        php-version: ["7.2", "7.3", "7.4", "8.0", "8.1"]
         composer-update: ["", "--prefer-stable --prefer-lowest"]
     steps:
     - uses: actions/checkout@master
